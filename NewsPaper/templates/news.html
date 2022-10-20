@@ -1,0 +1,13 @@
+{% extends 'default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+  {{ news.title }}
+{% endblock %}
+
+{% block content %}
+  <h1>{{ news.title|censor }}</h1>
+  <h3>Дата публикации: {{ news.time|date:'d M Y h:m' }}</h3>
+  <div class="container">{{ news.text|censor }}</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+  Новости
+{% endblock %}
+
+{% block content %}
+  <h1>Все новости</h1>
+  <h3>На сегодня ({{ time_now|date:'M d Y' }}) количество новостей: {{ news_list|length }}</h3>
+  <hr />
+  {% if news_list %}
+    <table class="table">
+      <tr>
+        <td>Заголовок</td>
+        <td>Время публикации</td>
+        <td>Превью</td>
+      </tr>
+      {% for n in news_list %}
+        <tr>
+          <td>{{ n.title|censor }}</td>
+          <td>{{ n.time|date:'d M Y' }}</td>
+          <td>{{ n.preview|truncatechars:50|censor }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <h1>Новостей нет</h1>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+  Все посты и новости
+{% endblock %}
+
+{% block content %}
+  <h1>Все посты и новости</h1>
+  <h3>На сегодня ({{ time_now|date:'M d Y' }}) количество постов: {{ post_list|length }}</h3>
+  <hr />
+  {% if post_list %}
+    <table class="table">
+      <tr>
+        <td>Автор</td>
+        <td>Тип поста</td>
+        <td>Заголовок</td>
+        <td>Время публикации</td>
+        <td>Превью</td>
+        <td>Рейтинг</td>
+      </tr>
+      {% for p in post_list %}
+        <tr>
+          <td>{{ p.author }}</td>
+          <td>{{ p.post_type }}</td>
+          <td>{{ p.title|censor }}</td>
+          <td>{{ p.time|date:'d M Y' }}</td>
+          <td>{{ p.preview|truncatechars:20|censor }}</td>
+          <td>{{ p.rating }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <h1>Постов нет</h1>
+  {% endif %}
+{% endblock %}
